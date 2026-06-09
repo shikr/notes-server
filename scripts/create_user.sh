@@ -45,7 +45,8 @@ if id "$USER" &>/dev/null; then
     warn "El usuario '$USER' ya existe. Se omitirá la creación."
 else
     info "Creando el usuario '$USER'..."
-    useradd -m -s /bin/bash -p "$PASSWORD" "$USER"
+    useradd -m -s /bin/bash "$USER"
+    echo "$USER:$PASSWORD" | chpasswd
     ok "Usuario '$USER' creado."
 fi
 
@@ -68,7 +69,7 @@ Match User $USER
     AllowTcpForwarding no
     X11Forwarding no
     PermitTTY yes
-# ------------------------------------------------------------------
+# -----------------------------------------------------------------
 EOF
 
 ok "Configuración SSH agregada para el usuario '$USER'."
@@ -96,7 +97,7 @@ echo
 echo -e "${GREEN}============================================================${NC}"
 echo -e "${GREEN}  Configuración completada${NC}"
 echo -e "${GREEN}============================================================${NC}"
-echo -e "  Usuario:       ${CYAN}${USUARIO}${NC}"
-echo -e "  ForceCommand:  ${CYAN}${COMANDO}${NC}"
+echo -e "  Usuario:       ${CYAN}${USER}${NC}"
+echo -e "  ForceCommand:  ${CYAN}${COMMAND}${NC}"
 echo -e "  Respaldo:      ${CYAN}${BACKUP}${NC}"
 echo -e "${GREEN}============================================================${NC}"
