@@ -1,4 +1,5 @@
 #include "notemanager.hh"
+#include <algorithm>
 #include <cstring>
 #include <filesystem>
 #include <grp.h>
@@ -55,9 +56,8 @@ vector<Note> NoteManager::get_notes() {
     }
   }
 
-  std::sort(notes.begin(), notes.end(), [](Note a, Note b) {
-    return a.get_timestamp() < b.get_timestamp();
-  });
+  sort(notes.begin(), notes.end(),
+       [](Note a, Note b) { return a.get_timestamp() < b.get_timestamp(); });
 
   return notes;
 }
